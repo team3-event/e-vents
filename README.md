@@ -1,5 +1,8 @@
 # E-vents
 
+Team members: Caelin Hargrave, TJ Parker, Austin, Trevor Stephens
+, Rexie Esmeralda
+
 ## Cooperation Plan
 
 **What are the key strengths of each person on the team?**
@@ -119,3 +122,19 @@ We have a set time or we can discuss if it's pertinent.
 ## Presentation Prep  
 
 Plan to have a dress rehearsal and plan out the presentation on thursday after our final merge.  
+
+## Our pitch
+
+To create a site that aggregates data that can be shared with friends to plan for events. Things like links to tickets, accomodation, flights, and weather during the event.  
+
+**What problem or pain point does it solve? a. Keep it high level without going into too much detail.**  
+
+It can be difficult to keep friends in the loop when trying to plan events and go on trips. This can create an easy place for everyone to stay updated and plan for the planned trip.  
+
+**Minimum Viable Product (MVP) definition.
+What is the minimum required for you to present on your demo day?**  
+  
+We would like a user to be able to search for an event or city and the weather, hotel, event info, and transportation info be displayed.  
+
+## Site logic layout
+![invision board](./images/Invision%20Board.png)
