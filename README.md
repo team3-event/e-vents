@@ -1,4 +1,4 @@
-# E-vents
+# E-vents 
 
 Team members: Caelin Hargrave, TJ Parker, Austin, Trevor Stephens
 , Rexie Esmeralda
@@ -11,7 +11,7 @@ Team members: Caelin Hargrave, TJ Parker, Austin, Trevor Stephens
 - Austin - Backend/CRUD/REST data manipulation, algorithmic things and such
 - Rexie - REACT and backend mostly
 - TJ  - Frontend and backend routing
-- Trevor - Backend 
+- Trevor - Backend
 
 **How can you best utilize these strengths in the execution of your project?**
 We have all the bases covered and we can simultaneosly complete aspects of the site. The grandslam!
@@ -59,7 +59,7 @@ All times in PST
 - Caelin - 830am-6pm but always around
 - TJ - 830am-6pm but always around
 - Rexie - 830am-6pm but always around
-- Trevor - 830-6pm 
+- Trevor - 830-6pm
 
 **What platforms will you use to communicate (ie. Slack, phone …)?**  
 
@@ -121,7 +121,7 @@ We have a set time or we can discuss if it's pertinent.
 
 ## Presentation Prep  
 
-Plan to have a dress rehearsal and plan out the presentation on thursday after our final merge.  
+Plan to have a dress rehearsal and plan out the presentation on thursday after our final merge.We will also create slides during this time.  
 
 ## Our pitch
 
@@ -133,8 +133,26 @@ It can be difficult to keep friends in the loop when trying to plan events and g
 
 **Minimum Viable Product (MVP) definition.
 What is the minimum required for you to present on your demo day?**  
-  
+
 We would like a user to be able to search for an event or city and the weather, hotel, event info, and transportation info be displayed.  
 
-## Site logic layout
+## Domain Model 
+
 ![invision board](./images/Invision%20Board.png)
+
+## User Stories
+
+1. A user wants to find future events in an area that they're planning to visit. So they use the site to plan.
+
+2. A user is bored and looking for something to do with friends so they use the site to find an event and book a hotel for the night.
+
+3. A user is trying to plan the cost of a trip and uses the site to price out the price of travel and accommodation.  
+
+4. A user already has plans but they are wondering what the weather will be like during that event.  
+
+5. A user would like a place to keep track of upcoming trips with friends and to have that data all stored in one place.  
+
+## Database Schema Diagram
+
+![Schema layout](./images/Mongo%20DB%20Schema%20plan.png)
+The event data will be stored for each user as a collection. As well as a collection for the groups of users that would like to be associated with each other.  
