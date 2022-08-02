@@ -138,7 +138,7 @@ We would like a user to be able to search for an event or city and the weather, 
 
 ## Domain Model 
 
-![invision board](./images/Invision%20Board.png)
+![invision board](./Class%20files/readmeimages/Invision%20Board.png)
 
 ## User Stories
 
@@ -154,5 +154,5 @@ We would like a user to be able to search for an event or city and the weather, 
 
 ## Database Schema Diagram
 
-![Schema layout](./images/Mongo%20DB%20Schema%20plan.png)
+![Schema layout](/Class%20files/readmeimages/Mongo%20DB%20Schema%20plan.png)
 The event data will be stored for each user as a collection. As well as a collection for the groups of users that would like to be associated with each other.  
