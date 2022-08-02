@@ -1,43 +1,72 @@
 import React from "react";
 import Form from "react-bootstrap/Form"
-import  Button  from "react-bootstrap/Button";
+import Button from "react-bootstrap/Button";
+import InputGroup from "react-bootstrap/InputGroup"
+import Dropdown from 'react-bootstrap/Dropdown';
+import DropdownButton from 'react-bootstrap/DropdownButton';
 import axios from 'axios'
 
-
+let url = "http://localhost:3001"
 class Query extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            query: ''
+            city: '',
+            event: '',
+            dropdown: 'Event type'
         }
     }
-    handleChange = (e) => {
+
+    handleChangeCity = (e) => {
         let { value } = e.target;
-        this.setState ({ query: value })
-        
+        this.setState({ city: value })
+
+    }
+    handleChangeEvent = (e) => {
+        let { value } = e.target;
+        this.setState({ event: value })
+
     }
     handleSubmit = (e) => {
-        e.preventDefault();
-        let search = this.state.query;
-        //axios call here
-        //this.props.passResponse(res)
+        let Citysearch = this.state.city;
+        let Eventsearch = this.state.event;
+        axios.get(`${url}/events?city=${Citysearch}&event=${Eventsearch}&eventType=${this.state.dropdown}`, Citysearch).then(response => {
+            this.props.passResponse(response);
+            //this.props.passResponse(res)
+        })
+
+    }
+
+    dropdown = (e) => {
+        this.setState({ dropdown: e.target.name });
     }
 
     render() {
-        
+
         return (
-            
-            <Form onSubmit={this.handleSubmit} style={{margin:"auto" , width:"30rem", textAlign: "center"}}>
-                <Form.Group>
-                    <Form.Label  >Enter city or event name</Form.Label>
-                    <Form.Control name="query" onChange={this.handleChange} type="text" placeholder="" />
-                    <Form.Text>
-                    </Form.Text>
-                </Form.Group>
-                <Button type='Submit'>Search</Button>
-            </Form>
-            
-           
+
+            <InputGroup className="mb-3">
+
+                <DropdownButton
+                    variant="outline-secondary"
+                    title={`${this.state.dropdown}`}
+                    id="event-selection"
+                >
+                    <Dropdown.Item onClick={this.dropdown} name="Sports" >Sports</Dropdown.Item>
+                    <Dropdown.Item onClick={this.dropdown} name="Concert" >Concert</Dropdown.Item>
+                    <Dropdown.Item onClick={this.dropdown} name="Sports" ></Dropdown.Item>
+                    <Dropdown.Divider />
+                    <Dropdown.Item href="#">Anything</Dropdown.Item>
+                </DropdownButton>
+                <Form.Control onChange={this.handleChangeCity} type="text" placeholder="Enter a city" aria-label="Text input with dropdown button" />
+                <Form.Control onChange={this.handleChangeEvent} type="text" placeholder="Enter an event" aria-label="Text input with dropdown button" />
+                <Button onClick={this.handleSubmit} type='button'>Search</Button>
+            </InputGroup>
+
+
+
+
+
         )
     }
 }

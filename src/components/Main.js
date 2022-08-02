@@ -15,12 +15,14 @@ class Main extends React.Component {
     constructor() {
         super()
         this.state = {
-
+            eventData: {}
         }
     }
-handleQueryResponse = (response) => {
 
+    handleQueryResponse = (response) => {
+    this.setState({eventData: response})
 }
+
 
     render() {
         return (
