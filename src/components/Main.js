@@ -18,10 +18,20 @@ class Main extends React.Component {
         this.state = {
             url: "http://localhost:3001",
             queryData: {},
-            hotelData: [],
+            eventData: [],
             flightData: {},
-            eventData: []
+            hotelData: [],
 
+            //To be displayed on main page - user journeys displayed one was and group along the right side of the page?
+            userEvents: [],
+            groupEvents: [],
+
+            //For sending to database
+            userId: 0,
+            currentGroupId: 0,
+            selectedEvent: {},
+            selectedFlight: {},
+            selectedHotel: {}
         }
     }
 
@@ -60,6 +70,28 @@ class Main extends React.Component {
             const response = await axios.get(`${this.state.url}/events?eventType=${this.state.queryData.dropDown}&depLocation=${this.state.queryData.departingCity}&arrLocation=${this.state.queryData.arrivingCity}&fromDate=${this.state.queryData.startDate}&toDate=${this.state.queryData.endDate}`)
             console.log(response.data)
             this.setState({ eventData: response.data})
+        } catch (e) {
+            console.log(e)
+        }
+    }
+
+    //This adds an event to the database and updates state for userEvents and groupEvents
+    postSelectedJourney = async () => {
+       let journey = {
+        "userId": this.state.userId,
+        "groupId": this.state.currentGroupId,
+        "event": this.state.selectedEvent,
+        "flight": this.state.selectedFlight,
+        "hotels": this.state.selectedHotel
+       }
+        try {
+            await axios.post(`${this.state.url}/events`, journey)
+            let updatedUserEvents = await axios.get(`${this.state.url}/userEvents/${this.state.userId}`)
+            let updatedGroupEvents = await axios.get(`${this.state.url}/groupEvents/${this.state.currentGroupId}`)
+            this.setState({ 
+                userEvents: updatedUserEvents,
+                groupEvents: updatedGroupEvents
+            })
         } catch (e) {
             console.log(e)
         }
