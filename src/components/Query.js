@@ -6,39 +6,46 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import axios from 'axios'
 
-let url = "http://localhost:3001"
+
+
 class Query extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            city: '',
-            event: '',
-            dropdown: 'Event type'
+            arrivingCity: '',
+            departingCity: '',
+            startDate: '',
+            endDate: '',
+            dropDown: 'Event type'
         }
     }
 
     handleChangeCity = (e) => {
         let { value } = e.target;
-        this.setState({ city: value })
+        this.setState({ arrivingCity: value })
 
     }
-    handleChangeEvent = (e) => {
+    handleChangeDepartingCity = (e) => {
         let { value } = e.target;
-        this.setState({ event: value })
+        this.setState({ departingCity: value })
 
+    }
+    handleChangeStartDate =(e) => {
+        let { value } = e.target;
+        this.setState({ startDate: value })
+    }
+    handleChangeEndDate =(e) => {
+        let { value } = e.target;
+        this.setState({ endDate: value })
     }
     handleSubmit = (e) => {
-        let Citysearch = this.state.city;
-        let Eventsearch = this.state.event;
-        axios.get(`${url}/events?city=${Citysearch}&event=${Eventsearch}&eventType=${this.state.dropdown}`, Citysearch).then(response => {
-            this.props.passResponse(response);
-            //this.props.passResponse(res)
-        })
-
+        // console.log(this.state)
+      this.props.passQuery(this.state)
+        
     }
 
     dropdown = (e) => {
-        this.setState({ dropdown: e.target.name });
+        this.setState({ dropDown: e.target.name });
     }
 
     render() {
@@ -49,17 +56,24 @@ class Query extends React.Component {
 
                 <DropdownButton
                     variant="outline-secondary"
-                    title={`${this.state.dropdown}`}
+                    title={`${this.state.dropDown}`}
                     id="event-selection"
                 >
-                    <Dropdown.Item onClick={this.dropdown} name="Sports" >Sports</Dropdown.Item>
-                    <Dropdown.Item onClick={this.dropdown} name="Concert" >Concert</Dropdown.Item>
-                    <Dropdown.Item onClick={this.dropdown} name="Sports" ></Dropdown.Item>
+                    <Dropdown.Item onClick={this.dropdown} name="sports" >Sports</Dropdown.Item>
+                    <Dropdown.Item onClick={this.dropdown} name="festivals" >festivals</Dropdown.Item>
+                    <Dropdown.Item onClick={this.dropdown} name="concerts" >Concert</Dropdown.Item>
+                    <Dropdown.Item onClick={this.dropdown} name="any" ></Dropdown.Item>
                     <Dropdown.Divider />
                     <Dropdown.Item href="#">Anything</Dropdown.Item>
                 </DropdownButton>
-                <Form.Control onChange={this.handleChangeCity} type="text" placeholder="Enter a city" aria-label="Text input with dropdown button" />
-                <Form.Control onChange={this.handleChangeEvent} type="text" placeholder="Enter an event" aria-label="Text input with dropdown button" />
+                
+                
+                <Form.Control onChange={this.handleChangeCity} type="text" placeholder="Traveling to (city)" aria-label="Text input with dropdown button" />
+                <Form.Control className="w-30" onChange={this.handleChangeDepartingCity} type="text" placeholder="from (city)" aria-label="Text input with dropdown button" />
+                <InputGroup.Text>Arrive</InputGroup.Text><Form.Control type="date" id="start" onChange={this.handleChangeStartDate} label="trip start" name="trip-start" min="2022-08-01" max="2023-08-01" />
+                <InputGroup.Text>Departing</InputGroup.Text><Form.Control type="date" id="end" onChange={this.handleChangeEndDate} name="trip-end" min="2022-08-01" max="2023-08-01" />
+
+                    
                 <Button onClick={this.handleSubmit} type='button'>Search</Button>
             </InputGroup>
 
