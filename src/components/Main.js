@@ -7,6 +7,7 @@ import Weather from "./Weather";
 import Travel from "./Travel";
 import Accomodation from "./Accomodation";
 import EventInfo from "./EventInfo";
+import AboutUs from "./AboutUs"
 
 
 
@@ -108,6 +109,7 @@ class Main extends React.Component {
                 <Weather />
                 <Travel price={this.state.flightData.total} url={this.state.flightData.bookingUrl} dTime={this.state.flightData.departureTime} aTime={this.state.flightData.arrivalTime} stop={this.state.flightData.stopOverCount}/>
                 <Accomodation queryData={this.state.hotelData} />
+                <AboutUs />
             </div>
         )
     }
