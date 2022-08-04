@@ -39,8 +39,8 @@ class Main extends React.Component {
 
     handleQuery = async (userQuery) => {
         await this.setState({ queryData: userQuery });
-        // await this.getHotelData();
-        // await this.getFlightData();
+        await this.getHotelData();
+        await this.getFlightData();
         await this.getEventData();
 
         

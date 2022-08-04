@@ -16,7 +16,6 @@ class Auth0Token extends Component {
         if (this.props.auth0.isAuthenticated) {
             try {
                 let res = await this.props.auth0.getIdTokenClaims();
-
                 let token = res.__raw;
                 console.log(token);
                 let response = await axios.get('http://localhost:3001/login', { headers: { "Authorization": `Bearer ${token}` } });
