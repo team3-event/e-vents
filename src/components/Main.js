@@ -3,12 +3,12 @@ import "./Main.css"
 import Query from "./Query"
 import Header from "./Header";
 import axios from "axios";
-import Weather from "./Weather";
 import Travel from "./Travel";
 import Accomodation from "./Accomodation";
 import EventInfo from "./EventInfo";
 import {useAuth0} from "@auth0/auth0-react"
 import User from './user.js'
+import { Next } from "react-bootstrap/esm/PageItem";
 
 
 
@@ -20,14 +20,14 @@ class Main extends React.Component {
             eventData: [],
             flightData: {},
             hotelData: [],
+            showFlights : false,
 
             //To be displayed on main page - user journeys displayed one was and group along the right side of the page?
             userEvents: [],
             groupEvents: [],
 
             //For sending to database
-            userId: 0,
-            userEmail: '',
+            userId: '',
             currentGroupId: 0,
             selectedEvent: {},
             selectedFlight: {},
@@ -36,12 +36,33 @@ class Main extends React.Component {
     }
 
     
-    // setUser = (email) => {
-    //     this.setState({userEmail: email})
-    // }
+  
 
-    handleQuery = async (userQuery) => {
+     componentDidMount = async () => {
+        
+        
+       
+        try {
+        const response = await axios.get(`${process.env.REACT_APP_URL}/userEvents/${this.state.userId}`)
+        if (response.data !== '') {
+            console.log(response.data)
+        }
+    }
+    catch(e){
+        console.log(e);
+    }
+    
+
+     }
+     
+   
+     handleQuery = async (userQuery) => {
         await this.setState({ queryData: userQuery });
+        this.setState({ 
+            userId : this.props.user.email,
+            userEmail : this.props.user.email
+        })
+        console.log(this.props.user);
         await this.getHotelData();
         await this.getFlightData();
         await this.getEventData();
@@ -64,7 +85,8 @@ class Main extends React.Component {
             console.log(response.data)
             this.setState({ 
                 flightData: response.data,
-                selectedFlight : response.data 
+                selectedFlight : response.data,
+                showFlights : true
             })
         } catch (e) {
             console.log(e)
@@ -88,6 +110,12 @@ class Main extends React.Component {
     getSelectedEvent = async (item) =>{
         await this.setState({ selectedEvent : item });
     } 
+    sendEmail= () =>{
+        this.setState({ 
+            userId : this.props.user.email,
+            userEmail : this.props.user.email
+        })
+    }
     //This adds an event to the database and updates state for userEvents and groupEvents
 
     postSelectedJourney = async () => {
@@ -119,11 +147,12 @@ class Main extends React.Component {
             <div>
                 {/* <User handleUser = {this.setUser}/> */}
                 <Header />
-                <Query passQuery={this.handleQuery} />
+                <Query sendEmail={this.sendEmail} passQuery={this.handleQuery} />
                 <Accomodation getHotel={this.getSelectedAccomodation} queryData={this.state.hotelData} />
                 <EventInfo getEvent={this.getSelectedEvent} queryData={this.state.eventData} />
+                {this.state.showFlights && 
                 <Travel journey={this.postSelectedJourney} price={this.state.flightData.total} url={this.state.flightData.bookingUrl} dTime={this.state.flightData.departureTime} aTime={this.state.flightData.arrivalTime} stop={this.state.flightData.stopOverCount}/>
-                
+            }
             </div>
         )
     }

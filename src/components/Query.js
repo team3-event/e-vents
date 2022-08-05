@@ -41,18 +41,21 @@ class Query extends React.Component {
     handleSubmit = (e) => {
         // console.log(this.state)
       this.props.passQuery(this.state)
+     
         
     }
 
     dropdown = (e) => {
         this.setState({ dropDown: e.target.name });
     }
-
+sendEmail = () => {
+    this.props.sendEmail();
+}
     render() {
 
         return (
 
-            <InputGroup className="mb-3">
+            <InputGroup style={{marginTop: "3rem", width: "90rem"}} className="mb-3">
 
                 <DropdownButton
                     variant="outline-secondary"
@@ -60,7 +63,7 @@ class Query extends React.Component {
                     id="event-selection"
                 >
                     <Dropdown.Item onClick={this.dropdown} name="sports" >Sports</Dropdown.Item>
-                    <Dropdown.Item onClick={this.dropdown} name="festivals" >festivals</Dropdown.Item>
+                    <Dropdown.Item onClick={this.dropdown} name="festivals" >Festivals</Dropdown.Item>
                     <Dropdown.Item onClick={this.dropdown} name="concerts" >Concert</Dropdown.Item>
                     <Dropdown.Item onClick={this.dropdown} name="any" ></Dropdown.Item>
                     <Dropdown.Divider />
@@ -69,12 +72,11 @@ class Query extends React.Component {
                 
                 
                 <Form.Control onChange={this.handleChangeCity} type="text" placeholder="Traveling to (city)" aria-label="Text input with dropdown button" />
-                <Form.Control className="w-30" onChange={this.handleChangeDepartingCity} type="text" placeholder="from (city)" aria-label="Text input with dropdown button" />
-                <InputGroup.Text>Arrive</InputGroup.Text><Form.Control type="date" id="start" onChange={this.handleChangeStartDate} label="trip start" name="trip-start" min="2022-08-01" max="2023-08-01" />
-                <InputGroup.Text>Departing</InputGroup.Text><Form.Control type="date" id="end" onChange={this.handleChangeEndDate} name="trip-end" min="2022-08-01" max="2023-08-01" />
-
-                    
-                <Button onClick={this.handleSubmit} type='button'>Search</Button>
+                <Form.Control onChange={this.handleChangeDepartingCity} type="text" placeholder="from (city)" aria-label="Text input with dropdown button" />
+                <InputGroup.Text>Arrive</InputGroup.Text><Form.Control  type="date" id="start" onChange={this.handleChangeStartDate} label="trip start" name="trip-start" min="2022-08-01" max="2023-08-01" />
+                <InputGroup.Text>Departing</InputGroup.Text><Form.Control  type="date" id="end" onChange={this.handleChangeEndDate} name="trip-end" min="2022-08-01" max="2023-08-01" />
+                <Button variant="primary" onClick={this.handleSubmit} type='button'>Search</Button>
+                <Button onClick={this.sendEmail} type='button'>Load previous</Button>
             </InputGroup>
 
 

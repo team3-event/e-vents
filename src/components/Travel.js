@@ -1,6 +1,5 @@
 import React from "react";
-import Row from "react-bootstrap/Row"
-import Card from "react-bootstrap/Card"
+
 
 
 class Travel extends React.Component {
