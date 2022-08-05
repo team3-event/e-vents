@@ -3,12 +3,16 @@ import Main from './components/Main.js';
 import React from 'react';
 import Login from './components/auth/Login.js';
 import Auth0Token from './Auth0Token.js';
+import { useAuth0 } from "@auth0/auth0-react";
 
-class App extends React.Component {
-  render() {
+const App = () => {
+  const  {user} = useAuth0();
+
+
+  
     return (
       <div>
-        <Main />
+        <Main user={user}/>
         <Login />
         <Auth0Token />
       </div>
@@ -16,7 +20,5 @@ class App extends React.Component {
     );
     }
   
-  
-}
 
 export default App;
