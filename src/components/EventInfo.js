@@ -34,7 +34,6 @@ class EventInfo extends React.Component {
 
 class EventCards extends React.Component {
     saveEvent = () => {
-        console.log(this.props.eventData);
         this.props.getEvent(this.props.eventData)
     }
 
