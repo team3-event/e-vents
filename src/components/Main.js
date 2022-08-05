@@ -7,8 +7,8 @@ import Weather from "./Weather";
 import Travel from "./Travel";
 import Accomodation from "./Accomodation";
 import EventInfo from "./EventInfo";
-
-
+import {useAuth0} from "@auth0/auth0-react"
+import User from './user.js'
 
 
 
@@ -16,7 +16,6 @@ class Main extends React.Component {
     constructor() {
         super()
         this.state = {
-            url: "http://localhost:3001",
             queryData: {},
             eventData: [],
             flightData: {},
@@ -28,6 +27,7 @@ class Main extends React.Component {
 
             //For sending to database
             userId: 0,
+            userEmail: '',
             currentGroupId: 0,
             selectedEvent: {},
             selectedFlight: {},
@@ -35,7 +35,10 @@ class Main extends React.Component {
         }
     }
 
-  
+    
+    // setUser = (email) => {
+    //     this.setState({userEmail: email})
+    // }
 
     handleQuery = async (userQuery) => {
         await this.setState({ queryData: userQuery });
@@ -48,7 +51,7 @@ class Main extends React.Component {
 
     getHotelData = async () => {
         try {
-            const response = await axios.get(`${this.state.url}/hotels?city=${this.state.queryData.arrivingCity}`, this.state.queryData.arrivingCity)
+            const response = await axios.get(`${process.env.REACT_APP_URL}/hotels?city=${this.state.queryData.arrivingCity}`, this.state.queryData.arrivingCity)
             this.setState({ hotelData: response.data })
         } catch (e) {
             console.log(e)
@@ -57,7 +60,7 @@ class Main extends React.Component {
 
     getFlightData = async () => {
         try {
-            const response = await axios.get(`${this.state.url}/flights?eventType=${this.state.queryData.dropDown}&depLocation=${this.state.queryData.departingCity}&arrLocation=${this.state.queryData.arrivingCity}&fromDate=${this.state.queryData.startDate}&toDate=${this.state.queryData.endDate}`)
+            const response = await axios.get(`${process.env.REACT_APP_URL}/flights?eventType=${this.state.queryData.dropDown}&depLocation=${this.state.queryData.departingCity}&arrLocation=${this.state.queryData.arrivingCity}&fromDate=${this.state.queryData.startDate}&toDate=${this.state.queryData.endDate}`)
             console.log(response.data)
             this.setState({ flightData: response.data})
         } catch (e) {
@@ -67,7 +70,9 @@ class Main extends React.Component {
     
     getEventData = async () => {
         try {
-            const response = await axios.get(`${this.state.url}/events?eventType=${this.state.queryData.dropDown}&depLocation=${this.state.queryData.departingCity}&arrLocation=${this.state.queryData.arrivingCity}&fromDate=${this.state.queryData.startDate}&toDate=${this.state.queryData.endDate}`)
+            //const {user} = useAuth0();
+            console.log(this.props.user);
+            const response = await axios.get(`${process.env.REACT_APP_URL}/events?eventType=${this.state.queryData.dropDown}&depLocation=${this.state.queryData.departingCity}&arrLocation=${this.state.queryData.arrivingCity}&fromDate=${this.state.queryData.startDate}&toDate=${this.state.queryData.endDate}`, {Authorization: `Bearer 0bQ1JrQsQFDEh0sht3AKtLmkUsdkyfoxkkeY0IFn`})
             console.log(response.data)
             this.setState({ eventData: response.data})
         } catch (e) {
@@ -85,9 +90,9 @@ class Main extends React.Component {
         "hotels": this.state.selectedHotel
        }
         try {
-            await axios.post(`${this.state.url}/events`, journey)
-            let updatedUserEvents = await axios.get(`${this.state.url}/userEvents/${this.state.userId}`)
-            let updatedGroupEvents = await axios.get(`${this.state.url}/groupEvents/${this.state.currentGroupId}`)
+            await axios.post(`${process.env.REACT_APP_URL}/events`, journey)
+            let updatedUserEvents = await axios.get(`${process.env.REACT_APP_URL}/userEvents/${this.state.userId}`)
+            let updatedGroupEvents = await axios.get(`${process.env.REACT_APP_URL}/groupEvents/${this.state.currentGroupId}`)
             this.setState({ 
                 userEvents: updatedUserEvents,
                 groupEvents: updatedGroupEvents
@@ -99,9 +104,10 @@ class Main extends React.Component {
 
 
     render() {
-        console.log(this.state.flightData);
+        //console.log(this.state.flightData);
         return (
             <div>
+                {/* <User handleUser = {this.setUser}/> */}
                 <Header />
                 <Query passQuery={this.handleQuery} />
                 <EventInfo queryData={this.state.eventData} />
