@@ -19,7 +19,7 @@ class Auth0Token extends Component {
 
                 let token = res.__raw;
                 console.log(token);
-                let response = await axios.get('http://localhost:3001/login', { headers: { "Authorization": `Bearer ${token}` } });
+                let response = await axios.get(`${process.env.REACT_APP_URL}/login`, { headers: { "Authorization": `Bearer ${token}` } });
                 console.log(response);
             } catch (e) {
                 console.log(e);
