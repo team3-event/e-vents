@@ -36,7 +36,7 @@ class GroupData extends React.Component {
       return (
           <div>
             <div>
-              <Button variant="primary" onClick={this.handleClick}>Review your Group Journeys</Button>
+              <Button variant="primary" style={{backgroundColor: "#22d3ee"}} onClick={this.handleClick}>Review your Group Journeys</Button>
               
             <InputGroup style={{marginTop: "3rem", width: "90rem"}} className="mb-3">
 
@@ -52,11 +52,11 @@ class GroupData extends React.Component {
 </DropdownButton>
 
 
-<Button variant="primary" onClick={this.handleSubmit} type='button'>Set Group</Button>
+<Button variant="primary" style={{backgroundColor:"#22d3ee"}} onClick={this.handleSubmit} type='button'>Set Group</Button>
 </InputGroup>
             </div>
             
-            <Row>
+            <Row className="mx-auto gap-0">
               {this.props.groupEvents.map((event, idx) => (
                 <Col id={idx+100}>
                   <Card>

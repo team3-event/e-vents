@@ -75,8 +75,7 @@ sendEmail = () => {
                 <Form.Control onChange={this.handleChangeDepartingCity} type="text" placeholder="from (city)" aria-label="Text input with dropdown button" />
                 <InputGroup.Text>Arrive</InputGroup.Text><Form.Control  type="date" id="start" onChange={this.handleChangeStartDate} label="trip start" name="trip-start" min="2022-08-01" max="2023-08-01" />
                 <InputGroup.Text>Departing</InputGroup.Text><Form.Control  type="date" id="end" onChange={this.handleChangeEndDate} name="trip-end" min="2022-08-01" max="2023-08-01" />
-                <Button variant="primary"  type='button'>Search</Button>
-                <Button onClick={this.sendEmail} type='button'>Load previous</Button>
+                <Button onClick={this.sendEmail} style={{backgroundColor: "#22d3ee"}} type='button'>Load previous</Button>
             </InputGroup>
             <button
         type="button" onClick={this.handleSubmit}

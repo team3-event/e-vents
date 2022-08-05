@@ -12,8 +12,9 @@ const App = () => {
   
     return (
       <div>
+
         <Main user={user}/>
-        <Login />
+        
         <Auth0Token />
       </div>
       

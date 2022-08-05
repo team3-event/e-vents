@@ -12,6 +12,8 @@ import SetGroup from "./SetGroup.js"
 import {useAuth0} from "@auth0/auth0-react"
 import User from './user.js'
 import { Next } from "react-bootstrap/esm/PageItem";
+import AboutUs from "./AboutUs"
+import Login from "./auth/Login";
 
 
 
@@ -36,6 +38,7 @@ class Main extends React.Component {
             selectedEvent: {},
             selectedFlight: {},
             selectedHotel: {},
+            notLogged: false,
             loading: false,
             eventLoading: false,
             showHotel: false,
@@ -48,8 +51,6 @@ class Main extends React.Component {
 
      componentDidMount = async () => {
         
-        
-       
         try {
         const response = await axios.get(`${process.env.REACT_APP_URL}/userEvents/${this.state.userId}`)
         if (response.data !== '') {
@@ -75,8 +76,9 @@ class Main extends React.Component {
             userEmail : this.props.user.email
         })
         await this.getHotelData();
-        await this.getFlightData();
         await this.getEventData();
+        await this.getFlightData();
+        
         }
 
     updateUserId = () => {
@@ -211,8 +213,8 @@ class Main extends React.Component {
             <div>
                 {/* <User handleUser = {this.setUser}/> */}
                 <Header />
+                <Login className="mt-2" />
                 <Query sendEmail={this.sendEmail} passQuery={this.handleQuery} />
-
                 {this.state.loading && 
                 <div role="status">
                 <svg aria-hidden="true" className="" class="mx-auto mr-2 w-8 h-8 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -232,7 +234,7 @@ class Main extends React.Component {
             </div>
                 }
 
-                <UserData getUserData={this.getUserData} userEvents={this.state.userEvents}/>
+                <UserData  getUserData={this.getUserData} userEvents={this.state.userEvents}/>
                 <GroupData getUserGroupData={this.getUserGroupData} groupMatches={this.state.groupMatches} groupEvents={this.state.groupEvents} updateGroupId={this.updateGroupId}/>
                 {/* <SetGroup updateGroupId={this.updateGroupId}/> */}
                 {/* <Accomodation getHotel={this.getSelectedAccomodation} allData={this.state.queryData} queryData={this.state.hotelData} />
@@ -245,6 +247,7 @@ class Main extends React.Component {
                 {this.state.showFlights && 
             <Travel journey={this.postSelectedJourney} price={this.state.flightData.total} url={this.state.flightData.bookingUrl} dTime={this.state.flightData.departureTime} aTime={this.state.flightData.arrivalTime} stop={this.state.flightData.stopOverCount}/>
             }
+            <AboutUs/>
             </div>
         )
     }

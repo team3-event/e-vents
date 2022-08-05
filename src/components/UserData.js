@@ -8,7 +8,6 @@ class UserData extends React.Component {
 
 
   handleClick = (e) => {
-    console.log('hello');
     this.props.getUserData();
   }
 
@@ -16,7 +15,7 @@ class UserData extends React.Component {
       return (
           <div>
             <div>
-              <Button variant="primary" onClick={this.handleClick}>Review your Journeys</Button>
+              <Button variant="primary" style={{backgroundColor: "#22d3ee"}} onClick={this.handleClick}>Review your Journeys</Button>
             </div>
             <Row>
               {this.props.userEvents.map((event, idx) => (

@@ -71,7 +71,7 @@ class EventCards extends React.Component {
                                 <div className="mx-auto flex gap-x-4">
                                     <button onClick={this.saveEvent}
                                         type="button"
-                                        className="block  px-6 py-3 border border-transparent text-base font-medium rounded-2 shadow-sm text-white bg-cyan-400 hover:bg-sky-900 focus:bg-indigo-400 focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                                        className="block  px-6 py-3 border border-transparent text-base font-medium rounded-2 shadow-sm text-white bg-cyan-400 hover:bg-sky-900 focus:bg-sky-900 focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                                         
                                     >
                                         Save for later

@@ -56,7 +56,7 @@ constructor(){
                                     </div>
                                     <button
                                             type="button" onClick={this.changetext}
-                                            className="block mt-8 px-6 py-3 border border-transparent text-base font-medium rounded-2 shadow-sm text-white bg-emerald-400 hover:bg-sky-900 focus:bg-indigo-400 focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                                            className="block mt-8 px-6 py-3 border border-transparent text-base font-medium rounded-2 shadow-sm text-white bg-sky-900 hover:bg-sky-900 focus:bg-indigo-400 focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                                             
                                         >
                                             {this.state.buttonStatus}
