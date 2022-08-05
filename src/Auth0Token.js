@@ -12,14 +12,14 @@ class Auth0Token extends Component {
     }
 
     async componentDidMount() {
-        console.log(this.props);
+        
         if (this.props.auth0.isAuthenticated) {
             try {
                 let res = await this.props.auth0.getIdTokenClaims();
                 let token = res.__raw;
-                console.log(token);
+                
                 let response = await axios.get(`${process.env.REACT_APP_URL}/login`, { headers: { "Authorization": `Bearer ${token}` } });
-                console.log(response);
+               
             } catch (e) {
                 console.log(e);
             }

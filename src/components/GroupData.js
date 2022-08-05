@@ -17,22 +17,17 @@ class GroupData extends React.Component {
 }
 
   handleClick = (e) => {
-    console.log('hello');
+    
     this.props.getUserGroupData();
   }
 
   dropdown = (e) => {
     this.setState({ dropDown: e.target.name });
-    console.log(this.state.dropDown);
+    
     this.props.updateGroupId(e.target.name);
   }  
 
   render() {
-    console.log(this.props.groupEvents)
-    console.log(this.props.groupMatches)
-    // console.log(this.props.groupEvents[0])
-    // console.log(this.props.groupEvents[0].event)
-    // console.log(this.props.groupEvents[0].event.title)
       return (
           <div>
             <div>

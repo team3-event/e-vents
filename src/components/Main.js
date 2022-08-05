@@ -96,10 +96,10 @@ class Main extends React.Component {
     getUserData = async () => {
         try {
             this.updateUserId();
-            console.log('hi');
+            
             const response = await axios.get(`${process.env.REACT_APP_URL}/userEvents/${this.state.userId}`)
             this.setState({ userEvents: response.data });
-            console.log(response.data);
+            
         } catch (e) {
             console.log(e)
         }
@@ -109,7 +109,7 @@ class Main extends React.Component {
         try {
             const response = await axios.get(`${process.env.REACT_APP_URL}/groupEvents/${this.state.currentGroupId}`)
             this.setState({ groupEvents: response.data })
-            console.log(response.data)
+            
         } catch (e) {
             console.log(e)
         }
@@ -119,7 +119,7 @@ class Main extends React.Component {
         try {
             const response = await axios.get(`${process.env.REACT_APP_URL}/groupMatch/${this.state.userId}`)
             this.setState({ groupMatches: response.data })
-            console.log(response.data)
+            
         } catch (e) {
             console.log(e)
         }
@@ -142,7 +142,7 @@ class Main extends React.Component {
     getFlightData = async () => {
         try {
             const response = await axios.get(`${process.env.REACT_APP_URL}/flights?eventType=${this.state.queryData.dropDown}&depLocation=${this.state.queryData.departingCity}&arrLocation=${this.state.queryData.arrivingCity}&fromDate=${this.state.queryData.startDate}&toDate=${this.state.queryData.endDate}`)
-            console.log(response.data)
+            
             this.setState({ 
                 flightData: response.data,
                 selectedFlight : response.data,
@@ -155,10 +155,10 @@ class Main extends React.Component {
     
     getEventData = async () => {
         try {
-            //const {user} = useAuth0();
-            console.log(this.props.user);
+            
+            
             const response = await axios.get(`${process.env.REACT_APP_URL}/events?eventType=${this.state.queryData.dropDown}&depLocation=${this.state.queryData.departingCity}&arrLocation=${this.state.queryData.arrivingCity}&fromDate=${this.state.queryData.startDate}&toDate=${this.state.queryData.endDate}`, {Authorization: `Bearer 0bQ1JrQsQFDEh0sht3AKtLmkUsdkyfoxkkeY0IFn`})
-            console.log(response.data)
+            
             this.setState({ 
                 eventData: response.data,
                 eventLoading: false,
@@ -178,7 +178,7 @@ class Main extends React.Component {
             userId : this.props.user.email,
         })
         this.getUserGroupMatch();
-        console.log(this.state.userId);
+        
     }
 
 
@@ -193,7 +193,7 @@ class Main extends React.Component {
         "hotels": this.state.selectedHotel
        }
         try {
-            console.log(journey);
+            
             await axios.post(`${process.env.REACT_APP_URL}/events`, journey)
             let updatedUserEvents = await axios.get(`${process.env.REACT_APP_URL}/userEvents/${this.state.userId}`)
             let updatedGroupEvents = await axios.get(`${process.env.REACT_APP_URL}/groupEvents/${this.state.currentGroupId}`)
@@ -208,7 +208,7 @@ class Main extends React.Component {
 
 
     render() {
-        //console.log(this.state.flightData);
+       
         return (
             <div>
                 {/* <User handleUser = {this.setUser}/> */}

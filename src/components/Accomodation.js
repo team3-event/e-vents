@@ -33,7 +33,7 @@ class AccItem extends React.Component {
     }
 
     render() {
-        //console.log(this.props.allData);
+        
         return (
             <li key={this.props.name} className="   col-span-1 bg-white  drop-shadow-lg divide-gray-200">
                 <div className=" w-1/2 items-center gap-x-4 justify-between p-2 space-x-6">
