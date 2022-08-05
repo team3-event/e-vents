@@ -62,7 +62,10 @@ class Main extends React.Component {
         try {
             const response = await axios.get(`${process.env.REACT_APP_URL}/flights?eventType=${this.state.queryData.dropDown}&depLocation=${this.state.queryData.departingCity}&arrLocation=${this.state.queryData.arrivingCity}&fromDate=${this.state.queryData.startDate}&toDate=${this.state.queryData.endDate}`)
             console.log(response.data)
-            this.setState({ flightData: response.data})
+            this.setState({ 
+                flightData: response.data,
+                selectedFlight : response.data 
+            })
         } catch (e) {
             console.log(e)
         }
@@ -79,8 +82,14 @@ class Main extends React.Component {
             console.log(e)
         }
     }
-
+    getSelectedAccomodation = async (item) =>{
+        await this.setState({ selectedHotel : item });
+    } 
+    getSelectedEvent = async (item) =>{
+        await this.setState({ selectedEvent : item });
+    } 
     //This adds an event to the database and updates state for userEvents and groupEvents
+
     postSelectedJourney = async () => {
        let journey = {
         "userId": this.state.userId,
@@ -90,6 +99,7 @@ class Main extends React.Component {
         "hotels": this.state.selectedHotel
        }
         try {
+            console.log(journey);
             await axios.post(`${process.env.REACT_APP_URL}/events`, journey)
             let updatedUserEvents = await axios.get(`${process.env.REACT_APP_URL}/userEvents/${this.state.userId}`)
             let updatedGroupEvents = await axios.get(`${process.env.REACT_APP_URL}/groupEvents/${this.state.currentGroupId}`)
@@ -110,10 +120,10 @@ class Main extends React.Component {
                 {/* <User handleUser = {this.setUser}/> */}
                 <Header />
                 <Query passQuery={this.handleQuery} />
-                <EventInfo queryData={this.state.eventData} />
-                <Weather />
-                <Travel price={this.state.flightData.total} url={this.state.flightData.bookingUrl} dTime={this.state.flightData.departureTime} aTime={this.state.flightData.arrivalTime} stop={this.state.flightData.stopOverCount}/>
-                <Accomodation queryData={this.state.hotelData} />
+                <Accomodation getHotel={this.getSelectedAccomodation} queryData={this.state.hotelData} />
+                <EventInfo getEvent={this.getSelectedEvent} queryData={this.state.eventData} />
+                <Travel journey={this.postSelectedJourney} price={this.state.flightData.total} url={this.state.flightData.bookingUrl} dTime={this.state.flightData.departureTime} aTime={this.state.flightData.arrivalTime} stop={this.state.flightData.stopOverCount}/>
+                
             </div>
         )
     }
