@@ -8,7 +8,7 @@ class Header extends React.Component {
 
     render() {
         return (
-          <div className="relative bg-indigo-800">
+          <div className="relative h-120 bg-indigo-500">
           <div className="absolute inset-0">
             <img
               className="w-full h-full object-cover"
