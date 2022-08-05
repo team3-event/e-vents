@@ -6,6 +6,9 @@ import axios from "axios";
 import Travel from "./Travel";
 import Accomodation from "./Accomodation";
 import EventInfo from "./EventInfo";
+import UserData from "./UserData.js"
+import GroupData from "./GroupData.js"
+import SetGroup from "./SetGroup.js"
 import {useAuth0} from "@auth0/auth0-react"
 import User from './user.js'
 import { Next } from "react-bootstrap/esm/PageItem";
@@ -25,6 +28,7 @@ class Main extends React.Component {
             //To be displayed on main page - user journeys displayed one was and group along the right side of the page?
             userEvents: [],
             groupEvents: [],
+            groupMatches: [],
 
             //For sending to database
             userId: '',
@@ -73,8 +77,50 @@ class Main extends React.Component {
         await this.getHotelData();
         await this.getFlightData();
         await this.getEventData();
+        }
 
-        
+    updateUserId = () => {
+        this.setState({ 
+            userId : this.props.user.email,
+        })
+    }
+
+    updateGroupId = (item) => {
+        this.setState({ 
+            currentGroupId: item,
+        })
+    }
+
+    getUserData = async () => {
+        try {
+            this.updateUserId();
+            console.log('hi');
+            const response = await axios.get(`${process.env.REACT_APP_URL}/userEvents/${this.state.userId}`)
+            this.setState({ userEvents: response.data });
+            console.log(response.data);
+        } catch (e) {
+            console.log(e)
+        }
+    }
+
+    getUserGroupData = async () => {
+        try {
+            const response = await axios.get(`${process.env.REACT_APP_URL}/groupEvents/${this.state.currentGroupId}`)
+            this.setState({ groupEvents: response.data })
+            console.log(response.data)
+        } catch (e) {
+            console.log(e)
+        }
+    }
+
+    getUserGroupMatch = async () => {
+        try {
+            const response = await axios.get(`${process.env.REACT_APP_URL}/groupMatch/${this.state.userId}`)
+            this.setState({ groupMatches: response.data })
+            console.log(response.data)
+        } catch (e) {
+            console.log(e)
+        }
     }
 
     getHotelData = async () => {
@@ -128,9 +174,12 @@ class Main extends React.Component {
     sendEmail= () =>{
         this.setState({ 
             userId : this.props.user.email,
-            userEmail : this.props.user.email
         })
+        this.getUserGroupMatch();
+        console.log(this.state.userId);
     }
+
+
     //This adds an event to the database and updates state for userEvents and groupEvents
 
     postSelectedJourney = async () => {
@@ -163,6 +212,7 @@ class Main extends React.Component {
                 {/* <User handleUser = {this.setUser}/> */}
                 <Header />
                 <Query sendEmail={this.sendEmail} passQuery={this.handleQuery} />
+
                 {this.state.loading && 
                 <div role="status">
                 <svg aria-hidden="true" className="" class="mx-auto mr-2 w-8 h-8 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -185,6 +235,13 @@ class Main extends React.Component {
                 <Accomodation getHotel={this.getSelectedAccomodation} allData={this.state.queryData} queryData={this.state.hotelData} />}
             {this.state.showEvents && 
                 <EventInfo getEvent={this.getSelectedEvent} queryData={this.state.eventData} />}
+
+                <UserData getUserData={this.getUserData} userEvents={this.state.userEvents}/>
+                <GroupData getUserGroupData={this.getUserGroupData} groupMatches={this.state.groupMatches} groupEvents={this.state.groupEvents} updateGroupId={this.updateGroupId}/>
+                {/* <SetGroup updateGroupId={this.updateGroupId}/> */}
+                <Accomodation getHotel={this.getSelectedAccomodation} queryData={this.state.hotelData} />
+                <EventInfo getEvent={this.getSelectedEvent} queryData={this.state.eventData} />
+
                 {this.state.showFlights && 
                 <Travel journey={this.postSelectedJourney} price={this.state.flightData.total} url={this.state.flightData.bookingUrl} dTime={this.state.flightData.departureTime} aTime={this.state.flightData.arrivalTime} stop={this.state.flightData.stopOverCount}/>
             }
