@@ -196,8 +196,8 @@ class Main extends React.Component {
             let updatedUserEvents = await axios.get(`${process.env.REACT_APP_URL}/userEvents/${this.state.userId}`)
             let updatedGroupEvents = await axios.get(`${process.env.REACT_APP_URL}/groupEvents/${this.state.currentGroupId}`)
             this.setState({ 
-                userEvents: updatedUserEvents,
-                groupEvents: updatedGroupEvents
+                userEvents: updatedUserEvents.data,
+                groupEvents: updatedGroupEvents.data
             })
         } catch (e) {
             console.log(e)
@@ -231,19 +231,19 @@ class Main extends React.Component {
                 <span class="sr-only">Loading...</span>
             </div>
                 }
-            {this.state.showHotel &&
-                <Accomodation getHotel={this.getSelectedAccomodation} allData={this.state.queryData} queryData={this.state.hotelData} />}
-            {this.state.showEvents && 
-                <EventInfo getEvent={this.getSelectedEvent} queryData={this.state.eventData} />}
 
                 <UserData getUserData={this.getUserData} userEvents={this.state.userEvents}/>
                 <GroupData getUserGroupData={this.getUserGroupData} groupMatches={this.state.groupMatches} groupEvents={this.state.groupEvents} updateGroupId={this.updateGroupId}/>
                 {/* <SetGroup updateGroupId={this.updateGroupId}/> */}
-                <Accomodation getHotel={this.getSelectedAccomodation} queryData={this.state.hotelData} />
-                <EventInfo getEvent={this.getSelectedEvent} queryData={this.state.eventData} />
+                {/* <Accomodation getHotel={this.getSelectedAccomodation} allData={this.state.queryData} queryData={this.state.hotelData} />
+                <EventInfo getEvent={this.getSelectedEvent} queryData={this.state.eventData} /> */}
 
+            {this.state.showHotel &&
+                <Accomodation getHotel={this.getSelectedAccomodation} allData={this.state.queryData} queryData={this.state.hotelData} />}
+            {this.state.showEvents && 
+                <EventInfo getEvent={this.getSelectedEvent} queryData={this.state.eventData} />}
                 {this.state.showFlights && 
-                <Travel journey={this.postSelectedJourney} price={this.state.flightData.total} url={this.state.flightData.bookingUrl} dTime={this.state.flightData.departureTime} aTime={this.state.flightData.arrivalTime} stop={this.state.flightData.stopOverCount}/>
+            <Travel journey={this.postSelectedJourney} price={this.state.flightData.total} url={this.state.flightData.bookingUrl} dTime={this.state.flightData.departureTime} aTime={this.state.flightData.arrivalTime} stop={this.state.flightData.stopOverCount}/>
             }
             </div>
         )

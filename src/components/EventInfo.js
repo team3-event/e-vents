@@ -34,7 +34,7 @@ class EventInfo extends React.Component {
 
 class EventCards extends React.Component {
     saveEvent = () => {
-
+        console.log(this.props.eventData);
         this.props.getEvent(this.props.eventData)
     }
 
@@ -72,7 +72,7 @@ class EventCards extends React.Component {
                                     <button onClick={this.saveEvent}
                                         type="button"
                                         className="block  px-6 py-3 border border-transparent text-base font-medium rounded-2 shadow-sm text-white bg-cyan-400 hover:bg-sky-900 focus:bg-indigo-400 focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                                        disabled
+                                        
                                     >
                                         Save for later
                                     </button>

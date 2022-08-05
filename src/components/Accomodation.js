@@ -33,6 +33,7 @@ class AccItem extends React.Component {
     }
 
     render() {
+        //console.log(this.props.allData);
         return (
             <li key={this.props.name} className="   col-span-1 bg-white  drop-shadow-lg divide-gray-200">
                 <div className=" w-1/2 items-center gap-x-4 justify-between p-2 space-x-6">
@@ -42,7 +43,7 @@ class AccItem extends React.Component {
                             <button onClick={this.saveHotel}
                                 type="button"
                                 className="block  px-6 py-3 border border-transparent text-base font-medium rounded-2 shadow-sm text-white bg-cyan-400 hover:bg-sky-900 focus:bg-indigo-400 focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                                disabled
+                                
                             >
                                 Save for later
                             </button>
