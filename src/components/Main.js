@@ -52,7 +52,7 @@ class Main extends React.Component {
      componentDidMount = async () => {
         
         try {
-        const response = await axios.get(`${process.env.REACT_APP_URL}/userEvents/${this.state.userId}`)
+        const response = await axios.get(`${process.env.REACT_APP_URL}/${this.state.userId}`)
         if (response.data !== '') {
             console.log(response.data)
         }
