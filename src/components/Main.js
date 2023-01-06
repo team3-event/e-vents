@@ -1,7 +1,8 @@
 import React from "react";
 import "./Main.css"
 import Query from "./Query"
-import Header from "./Header";
+import Header from "./Header"
+import Splash from "./Splash";
 import axios from "axios";
 import Travel from "./Travel";
 import Accomodation from "./Accomodation";
@@ -213,6 +214,7 @@ class Main extends React.Component {
             <div>
                 {/* <User handleUser = {this.setUser}/> */}
                 <Header />
+                <Splash class="relative" />
                 <Login className="mt-2" />
                 <Query sendEmail={this.sendEmail} passQuery={this.handleQuery} />
                 {this.state.loading && 
